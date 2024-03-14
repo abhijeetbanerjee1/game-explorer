@@ -15,8 +15,12 @@ const GenreList = () => {
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const { data, error, isLoading } = useGenres();
 
+  // if (error) return null;
+
   return (
     <List>
+      {error && <Text>Error: {error}</Text>}
+
       {isLoading &&
         skeletons.map((skeleton) => <GenreListSkeleton key={skeleton} />)}
       {data.map((genre) => (
