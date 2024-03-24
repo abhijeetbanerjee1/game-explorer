@@ -8,6 +8,7 @@ import PlatfromSelector from "./components/PlatfromSelector";
 import { Platform } from "./hooks/useGames";
 import SortSelector from "./components/SortSelector";
 import GameHeading from "./components/GameHeading";
+import { DescriptionModal } from "./components/DescriptionModal";
 
 export interface GameQuery {
   genre: Genre | null;
@@ -63,6 +64,7 @@ function App() {
         </Box>
         <GameGrid gameQuery={gameQuery} />
       </GridItem>
+      <DescriptionModal />
     </Grid>
   );
 }
