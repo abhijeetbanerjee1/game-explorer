@@ -3,7 +3,6 @@ import {
   ListItem,
   HStack,
   Image,
-  Text,
   Button,
   Heading,
 } from "@chakra-ui/react";
@@ -29,7 +28,7 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
         {/* {error && <Text>Error: {error}</Text>} */}
         {/* {isLoading &&
           skeletons.map((skeleton) => <GenreListSkeleton key={skeleton} />)} */}
-        {data.map((genre) => (
+        {data?.results.map((genre) => (
           <ListItem key={genre.id} paddingY="5px">
             <HStack>
               <Image
