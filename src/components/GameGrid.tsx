@@ -1,18 +1,12 @@
-import { Box, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
+import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
-// import GameCardContainer from "./GameCardContainer";
-import { GameQuery } from "../App";
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import GameCardContainer from "./GameCardContainer";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-interface Props {
-  gameQuery: GameQuery;
-}
-
-const GameGrid = ({ gameQuery }: Props) => {
+const GameGrid = () => {
   const {
     data,
     error,
@@ -20,8 +14,8 @@ const GameGrid = ({ gameQuery }: Props) => {
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  } = useGames(gameQuery);
-  const skeletons = [1, 2, 3, 4, 5, 6];
+  } = useGames();
+  const skeletons = Array(6).fill(null);
 
   if (error) return <Text>{error.message}</Text>;
 
@@ -42,18 +36,18 @@ const GameGrid = ({ gameQuery }: Props) => {
       >
         {isLoading &&
           skeletons.map((skeleton) => (
-            // <GameCardContainer>
-            //   <GameCardSkeleton key={skeleton} />
-            // </GameCardContainer>
-            <GameCardSkeleton key={skeleton} />
+            <GameCardContainer key={skeleton}>
+              <GameCardSkeleton />
+            </GameCardContainer>
+            // <GameCardSkeleton key={skeleton} />
           ))}
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>
             {page.results.map((game) => (
-              //   <GameCardContainer>
-              //     <GameCard key={game.id} game={game} />
-              //   </GameCardContainer>
-              <GameCard key={game.id} game={game} />
+              <GameCardContainer key={game.id}>
+                <GameCard game={game} />
+              </GameCardContainer>
+              // <GameCard key={game.id} game={game} />
             ))}
           </React.Fragment>
         ))}

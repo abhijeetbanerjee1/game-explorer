@@ -1,33 +1,31 @@
 import {
+  Button,
+  HStack,
+  Heading,
+  Image,
   List,
   ListItem,
-  HStack,
-  Image,
-  Button,
-  Heading,
 } from "@chakra-ui/react";
-import useGenres, { Genre } from "../hooks/useGenres";
+import useGenres from "../hooks/useGenres";
 import getCroppedImageURL from "../services/image-url";
-import GenreListSkeleton from "./GenreListSkeleton";
+import useGameQueryStore from "../store";
+// import GenreListSkeleton from "./GenreListSkeleton";
 
-interface Props {
-  onSelectGenre: (genre: Genre) => void;
-  selectedGenreId?: number;
-}
-
-const GenreList = ({ selectedGenreId, onSelectGenre }: Props) => {
-  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const GenreList = () => {
+  // const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const { data, error, isLoading } = useGenres();
+  const selectedGenreId = useGameQueryStore((s) => s.gameQuery.genreId);
+  const setSelectedGenreId = useGameQueryStore((s) => s.setGenreId);
+  if (error) return null;
 
   return (
     <>
+      {/* {isLoading &&
+        skeletons.map((skeleton) => <GenreListSkeleton key={skeleton} />)} */}
       <Heading fontSize="2xl" marginBottom={3}>
         Genres
       </Heading>
       <List>
-        {/* {error && <Text>Error: {error}</Text>} */}
-        {/* {isLoading &&
-          skeletons.map((skeleton) => <GenreListSkeleton key={skeleton} />)} */}
         {data?.results.map((genre) => (
           <ListItem key={genre.id} paddingY="5px">
             <HStack>
@@ -42,7 +40,7 @@ const GenreList = ({ selectedGenreId, onSelectGenre }: Props) => {
                 textAlign="left"
                 fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
                 color={genre.id === selectedGenreId ? "white" : "gray.500"}
-                onClick={() => onSelectGenre(genre)}
+                onClick={() => setSelectedGenreId(genre.id)}
                 fontSize="lg"
                 variant="link"
               >
