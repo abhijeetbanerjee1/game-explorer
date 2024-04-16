@@ -1,4 +1,4 @@
-import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
+import { Center, SimpleGrid, Text } from "@chakra-ui/react";
 import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
@@ -27,7 +27,7 @@ const GameGrid = () => {
       dataLength={fetchedGamesCount}
       hasMore={!!hasNextPage}
       next={() => fetchNextPage()}
-      loader={<Spinner />}
+      loader={<Center>Loading...</Center>}
     >
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
