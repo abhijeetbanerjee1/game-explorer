@@ -7,8 +7,8 @@ import GameTrailer from "../components/GameTrailer";
 import GameScreenshots from "../components/GameScreenshots";
 
 const GameDetailPage = () => {
-  const { slug } = useParams();
-  const { data: game, isLoading, error } = useGame(slug!);
+  const params = useParams();
+  const { data: game, isLoading, error } = useGame(params.slug!);
 
   if (isLoading) return <Spinner />;
 
